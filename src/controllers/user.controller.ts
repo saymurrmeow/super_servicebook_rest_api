@@ -10,7 +10,7 @@ export default class UserController {
   ) {}
 
   @Get()
-  findById(): string {
+  findById() {
     return this.userService.findById();
   }
 }
