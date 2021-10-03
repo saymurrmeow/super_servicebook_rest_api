@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Module, OnApplicationShutdown } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { ModuleRef } from '@nestjs/core';
 import { Pool } from 'pg';
 
 import { PostgresService } from '../services/postgres.service';
@@ -17,6 +18,7 @@ const postgresPoolFactory = async (configService: ConfigService) => {
 @Module({
   providers: [
     {
+      // TODO rename
       provide: 'DATABASE_POOL',
       inject: [ConfigService],
       useFactory: postgresPoolFactory,
@@ -25,4 +27,11 @@ const postgresPoolFactory = async (configService: ConfigService) => {
   ],
   exports: [PostgresService],
 })
-export class DataBaseModule {}
+export class DataBaseModule implements OnApplicationShutdown {
+  constructor(private readonly moduleRef: ModuleRef) {}
+
+  onApplicationShutdown() {
+    const pool = this.moduleRef.get('DATABASE_POOL') as Pool;
+    pool.end();
+  }
+}
