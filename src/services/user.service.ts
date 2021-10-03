@@ -9,6 +9,6 @@ export default class UserService {
   ) {}
 
   findById() {
-    return this.userRepository.findById();
+    //return this.userRepository.findById();
   }
 }
