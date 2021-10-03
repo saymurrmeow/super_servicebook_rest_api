@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Pool } from 'pg';
 
-import { PostgresService } from '../services/postgresConection.service';
+import { PostgresService } from '../services/postgres.service';
 
-const postgresConnectionFactory = async (configService: ConfigService) => {
+const postgresPoolFactory = async (configService: ConfigService) => {
   return new Pool({
     user: configService.get('POSTGRES_USER'),
     host: configService.get('POSTGRES_HOST'),
@@ -19,7 +19,7 @@ const postgresConnectionFactory = async (configService: ConfigService) => {
     {
       provide: 'DATABASE_POOL',
       inject: [ConfigService],
-      useFactory: postgresConnectionFactory,
+      useFactory: postgresPoolFactory,
     },
     PostgresService,
   ],
