@@ -9,9 +9,14 @@ export class PostgresService {
 
   executeQuery<T>(queryText: string, values: any[] = []): Promise<T[] | T> {
     this.logger.debug(`Executing query: ${queryText} (${values})`);
-    return this.pool.query(queryText, values).then((result: QueryResult) => {
-      this.logger.debug(`Executed query, result size ${result.rows.length}`);
-      return result.rows;
-    });
+    return this.pool
+      .query(queryText, values)
+      .then((result: QueryResult) => {
+        this.logger.debug(`Executed query, result size ${result.rows.length}`);
+        return result.rows;
+      })
+      .catch((err) => {
+        throw err;
+      });
   }
 }
