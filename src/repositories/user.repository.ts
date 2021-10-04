@@ -8,6 +8,6 @@ export default class UserRepository implements IUserRepository {
   constructor(private postgersService: PostgresService) {}
 
   async create() {
-    console.log(await this.postgersService.executeQuery('SELECT * FROM blog'));
+    return this.postgersService.executeQuery('SELECT * FROM pages');
   }
 }

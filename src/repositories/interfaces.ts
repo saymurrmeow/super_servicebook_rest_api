@@ -1,9 +1,8 @@
-import { UserModel } from '../domain/model';
+import { UserEntity } from '../domain/model';
 import CreateUserDto from '../dto/createUser.dto';
 
 export interface IUserRepository {
-  create(): any;
-  // create(dto: CreateUserDto): Promise<UserModel>;
+  create(dto: CreateUserDto): Promise<UserEntity>;
   // findById(id: string): Promise<UserModel>;
   // findByEmail(email: string): Promise<UserModel>;
 }

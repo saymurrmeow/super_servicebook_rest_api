@@ -1,4 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
+
+import CreateUserDto from '../dto/createUser.dto';
 import { IUserRepository } from '../repositories/interfaces';
 import repoTypes from '../repositories/types';
 
@@ -8,8 +10,8 @@ export default class UserService {
     @Inject(repoTypes.UserRepository) private userRepository: IUserRepository,
   ) {}
 
-  create() {
-    this.userRepository.create();
+  async create(dto: CreateUserDto) {
+    return this.userRepository.create(dto);
   }
 
   findById() {
