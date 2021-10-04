@@ -7,16 +7,16 @@ export class PostgresService {
 
   constructor(@Inject('DATABASE_POOL') private pool: Pool) {}
 
-  executeQuery<T>(queryText: string, values: any[] = []): Promise<T[] | T> {
-    this.logger.debug(`Executing query: ${queryText} (${values})`);
-    return this.pool
-      .query(queryText, values)
-      .then((result: QueryResult) => {
-        this.logger.debug(`Executed query, result size ${result.rows.length}`);
-        return result.rows;
-      })
-      .catch((err) => {
-        throw err;
-      });
+  executeQuery<T>(queryText: string, values: any[] = []): Promise<T[]> {
+    return this.pool.query(queryText, values).then((result: QueryResult) => {
+      return result.rows;
+    });
+  }
+
+  // TODO DRY
+  executeRow<T>(queryText: string, values: any[] = []): Promise<T> {
+    return this.pool.query(queryText, values).then((result: QueryResult) => {
+      return result.rows[0];
+    });
   }
 }

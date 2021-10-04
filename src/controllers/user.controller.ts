@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Inject, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Res,
+} from '@nestjs/common';
+import { Response } from 'express';
 
 import UserService from '../services/user.service';
 import serviceTypes from '../services/types';
@@ -11,12 +20,12 @@ export default class UserController {
   ) {}
 
   @Post()
-  create(@Body() createUserDTO: CreateUserDto, @Res() res) {
-    this.userService.create(createUserDTO).then((user) => res.send(user));
+  create(@Body() createUserDTO: CreateUserDto, @Res() res: Response) {
+    this.userService.create(createUserDTO).then((user) => res.json({ user }));
   }
 
-  @Get()
-  findById() {
-    //TODO
+  @Get('/:id')
+  findById(@Param('id') id: string, @Res() res: Response) {
+    this.userService.findById(id).then((user) => res.json({ user }));
   }
 }

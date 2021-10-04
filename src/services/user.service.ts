@@ -14,7 +14,7 @@ export default class UserService {
     return this.userRepository.create(dto);
   }
 
-  findById() {
-    //return this.userRepository.findById();
+  findById(id: string) {
+    return this.userRepository.findById(id);
   }
 }
