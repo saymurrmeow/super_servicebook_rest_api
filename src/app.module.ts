@@ -3,9 +3,12 @@ import { ConfigModule } from '@nestjs/config';
 
 import { UserModule } from './modules/user.module';
 
+import devConfigFactory from './configs/development.config';
+
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: './env.develop', isGlobal: true }),
+    // TODO разобраться почему не работал .env
+    ConfigModule.forRoot({ isGlobal: true, load: [devConfigFactory] }),
     UserModule,
   ],
 })

@@ -8,6 +8,10 @@ export default class UserService {
     @Inject(repoTypes.UserRepository) private userRepository: IUserRepository,
   ) {}
 
+  create() {
+    this.userRepository.create();
+  }
+
   findById() {
     //return this.userRepository.findById();
   }

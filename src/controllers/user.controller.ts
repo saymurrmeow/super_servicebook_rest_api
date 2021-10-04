@@ -11,6 +11,6 @@ export default class UserController {
 
   @Get()
   findById() {
-    return this.userService.findById();
+    this.userService.create();
   }
 }

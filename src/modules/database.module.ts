@@ -1,5 +1,5 @@
 import { Module, OnApplicationShutdown } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ModuleRef } from '@nestjs/core';
 import { Pool } from 'pg';
 
@@ -16,9 +16,9 @@ const postgresPoolFactory = async (configService: ConfigService) => {
 };
 
 @Module({
+  imports: [ConfigModule],
   providers: [
     {
-      // TODO rename
       provide: 'DATABASE_POOL',
       inject: [ConfigService],
       useFactory: postgresPoolFactory,
