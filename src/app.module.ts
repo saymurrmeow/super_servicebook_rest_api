@@ -2,13 +2,15 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { UserModule } from './modules/user.module';
-
-import devConfigFactory from './configs/development.config';
+import configFactory from './configs/config';
 
 @Module({
   imports: [
-    // TODO разобраться почему не работал .env
-    ConfigModule.forRoot({ isGlobal: true, load: [devConfigFactory] }),
+    // .env file shuld be in root folder
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configFactory],
+    }),
     UserModule,
   ],
 })

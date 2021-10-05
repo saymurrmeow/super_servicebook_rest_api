@@ -5,7 +5,9 @@ import { Pool, QueryResult } from 'pg';
 export class PostgresService {
   private readonly logger = new Logger(PostgresService.name);
 
-  constructor(@Inject('DATABASE_POOL') private pool: Pool) {}
+  constructor(@Inject('DATABASE_POOL') private pool: Pool) {
+    console.log(process.env.TEST);
+  }
 
   executeQuery<T>(queryText: string, values: any[] = []): Promise<T[]> {
     return this.pool.query(queryText, values).then((result: QueryResult) => {
